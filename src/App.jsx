@@ -1,8 +1,10 @@
+import HomePage from "./pages/HomePage"
+import './App.css'
 
 export default function App() {
 
   return (
-    <div>hello</div>
+      <HomePage />
   )
 }
 
