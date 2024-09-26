@@ -3,7 +3,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #555555;
+  background-color: #0077B6;
   padding: 10px 20px;
   border-radius: 5px;
   box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3); 
@@ -26,18 +26,17 @@
 .navbar-links a {
   color: white; 
   text-decoration: none;
-  font-size: 18px;
+  font-size: 20px;
   padding: 8px 12px; 
   border-radius: 5px; 
   transition: color 0.3s ease; 
 }
 
-/* Efectul de hover */
+
 .navbar-links a:hover {
-  color: #ff5757; 
+  color: #D4D4D4; 
 }
 
-/* Stil pentru link-ul selectat */
 .navbar-links a.active {
   color: #ff914d; 
 }

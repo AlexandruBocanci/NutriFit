@@ -1,26 +1,37 @@
-import "./NavBar.css";
-import logo from "../assets/logo.png"; // Calea relativă către imagine
+import { Link, useLocation } from 'react-router-dom';
+import './NavBar.css';
+import logo from '../assets/logo.png'; // Calea relativă către imagine
 
 export default function NavBar() {
+  const location = useLocation(); // Obține ruta curentă
+
   return (
     <nav className="navbar">
       <div className="navbar-logo">
-        <a href="/">
+        <Link to="/">
           <img src={logo} alt="NutriFit Logo" className="logo-image" />
-        </a>
+        </Link>
       </div>
       <ul className="navbar-links">
         <li>
-          <a href="/">Home</a>
+          <Link to="/" className={location.pathname === '/' ? 'active' : ''}>
+            Home
+          </Link>
         </li>
         <li>
-          <a href="/tracker">Calorie Tracker</a>
+          <Link to="/tracker" className={location.pathname === '/tracker' ? 'active' : ''}>
+            Calorie Tracker
+          </Link>
         </li>
         <li>
-          <a href="/progress">Progress</a>
+          <Link to="/progress" className={location.pathname === '/progress' ? 'active' : ''}>
+            Progress
+          </Link>
         </li>
         <li className="navbar-account">
-          <a href="/account">Account</a>
+          <Link to="/account" className={location.pathname === '/account' ? 'active' : ''}>
+            Account
+          </Link>
         </li>
       </ul>
     </nav>
