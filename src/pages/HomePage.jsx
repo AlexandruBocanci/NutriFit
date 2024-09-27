@@ -1,10 +1,16 @@
-import NavBar from "../components/NavBar";
+import './HomePage.css'
+
 
 export default function HomePage() {
   return (
     <>
-    <NavBar />
-    <h1>home page</h1>
+      
+      <div className="home-container">
+        <h1>Welcome to NutriFit</h1>
+        <p>Your journey to a healthier lifestyle starts here.</p>
+      </div>
+      
     </>
   );
 }
+

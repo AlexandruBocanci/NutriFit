@@ -1,3 +1,45 @@
+/* Reset CSS */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Full height layout for the page */
+html, body, #root {
+  height: 100%;
+}
+
 body {
-  background-color: #F2F2F2;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-image: url('./assets/HomePageBackground.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main container for the App */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Takes full screen height */
+}
+
+/* Content section that pushes the footer down */
+.content {
+  flex: 1;
+}
+
+/* Footer styling */
+footer {
+  background-color: #0077B6;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+  width: 100%;
+  box-shadow: 0 -6px 10px rgba(0, 0, 0, 0.3);
+  border-radius: 5px 5px 0 0;
 }
