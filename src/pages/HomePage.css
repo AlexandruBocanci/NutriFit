@@ -21,3 +21,54 @@ p {
   line-height: 1.5;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
+
+.features {
+  display: flex;
+  justify-content: space-around;
+  margin: 40px 0;
+  gap: 20px;
+}
+
+.feature {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 10px;
+  width: 30%;
+  height: 60vh;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(0px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, backdrop-filter 0.3s ease;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1), /* Light white shadow for glass effect */
+              0 6px 12px rgba(0, 0, 0, 0.2);
+  border: 2px  solid black;
+}
+
+.feature h2 {
+  font-size: 24px;
+  color: #ff914d;
+}
+
+.feature p {
+  color: white;
+  margin: 15px 0;
+}
+
+.feature a {
+  background-color: #0077B6;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.feature:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(5px);
+}
+
+.feature a:hover {
+  background-color: #ff914d;
+}

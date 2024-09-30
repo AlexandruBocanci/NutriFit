@@ -1,8 +1,9 @@
+import AccountSettings from '../components/AccountSettings';
 
 export default function HomePage() {
   return (
     <>
-    <h1>account</h1>
+      <AccountSettings />
     </>
   );
 }
