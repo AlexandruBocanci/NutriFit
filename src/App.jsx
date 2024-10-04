@@ -6,7 +6,7 @@ import HomePage from './pages/HomePage';
 import CalorieTracker from './pages/CalorieTracker';
 import Progress from './pages/Progress';
 import Account from './pages/Account';
-import './App.css'; // Importă CSS-ul
+import './App.css'; 
 
 export default function App() {
   return (

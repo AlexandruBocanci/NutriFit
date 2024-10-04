@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import './AccountSettings.css';
+import { useBeforeUnload } from 'react-router-dom';
 
 export default function AccountSettings({ onSave }) {
   console.log('AccountSettings component rendered');
@@ -9,12 +10,14 @@ export default function AccountSettings({ onSave }) {
   const [goalWeight, setGoalWeight] = useState('');
   const [weeklyGoal, setWeeklyGoal] = useState('');
   const [activityLevel, setActivityLevel] = useState('');
+  const [age, setAge] = useState('');
 
   // Load saved settings from localStorage when the component mounts
   useEffect(() => {
     const savedSettings = JSON.parse(localStorage.getItem('userSettings'));
     console.log(savedSettings);
     if (savedSettings) {
+      setAge(savedSettings.age || '')
       setHeight(savedSettings.height || '');
       setCurrentWeight(savedSettings.currentWeight || '');
       setGoalWeight(savedSettings.goalWeight || '');
@@ -25,6 +28,7 @@ export default function AccountSettings({ onSave }) {
 
   // Function to collect user input into an object
   const getUserInfo = () => ({
+    age,
     height,
     currentWeight,
     goalWeight,
@@ -37,11 +41,12 @@ export default function AccountSettings({ onSave }) {
     const userInfo = getUserInfo();
     
     // Validation
+    const currentAge = parseFloat(userInfo.age);
     const currentWeightNum = parseFloat(userInfo.currentWeight);
     const goalWeightNum = parseFloat(userInfo.goalWeight);
     const weeklyGoalNum = parseFloat(userInfo.weeklyGoal);
 
-    if (! weeklyGoalNum || !goalWeightNum || !currentWeightNum || !weeklyGoalNum) {
+    if (!currentAge || ! weeklyGoalNum || !goalWeightNum || !currentWeightNum || !weeklyGoalNum) {
       alert("You must complete all sections !");
       return; // Stop execution if validation fails
     } else if (weeklyGoalNum < 0 && goalWeightNum >= currentWeightNum + weeklyGoalNum) {
@@ -58,7 +63,7 @@ export default function AccountSettings({ onSave }) {
     
     localStorage.setItem('userSettings', JSON.stringify(userInfo)); // Save to local storage
 
-    window.location.href = '/profile'; // Navigate to profile page
+    window.location.href = '/tracker'; // Navigate to profile page
   };
 
   return (
@@ -66,6 +71,14 @@ export default function AccountSettings({ onSave }) {
       <div className='page-title'>
         <h2>Customize your account settings!</h2>
       </div>
+
+      <InputField
+        label='Age'
+        type='number'
+        placeholder='Enter your age'
+        value={age}
+        onChange={setAge}
+      />
 
       <InputField
         label='Height (centimeters)'
