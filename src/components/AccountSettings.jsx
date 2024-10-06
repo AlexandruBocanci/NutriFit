@@ -4,7 +4,7 @@ import { useBeforeUnload } from 'react-router-dom';
 
 export default function AccountSettings({ onSave }) {
   console.log('AccountSettings component rendered');
-
+  const [gender, setGender] = useState('');
   const [height, setHeight] = useState('');
   const [currentWeight, setCurrentWeight] = useState('');
   const [goalWeight, setGoalWeight] = useState('');
@@ -17,6 +17,7 @@ export default function AccountSettings({ onSave }) {
     const savedSettings = JSON.parse(localStorage.getItem('userSettings'));
     console.log(savedSettings);
     if (savedSettings) {
+      setGender(savedSettings.gender || '')
       setAge(savedSettings.age || '')
       setHeight(savedSettings.height || '');
       setCurrentWeight(savedSettings.currentWeight || '');
@@ -28,6 +29,7 @@ export default function AccountSettings({ onSave }) {
 
   // Function to collect user input into an object
   const getUserInfo = () => ({
+    gender,
     age,
     height,
     currentWeight,
@@ -71,6 +73,17 @@ export default function AccountSettings({ onSave }) {
       <div className='page-title'>
         <h2>Customize your account settings!</h2>
       </div>
+
+      <SelectField
+        label='Gender'
+        value={gender}
+        onChange={setGender}
+        options={[
+          { value: '', text: 'Select your gender', disabled: true },
+          { value: 'Male', text: 'Male'},
+          { value: 'Female', text: 'Female' },
+        ]}
+      />
 
       <InputField
         label='Age'

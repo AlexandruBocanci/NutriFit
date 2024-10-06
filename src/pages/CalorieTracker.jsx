@@ -1,8 +1,11 @@
+import FoodInput from "../components/FoodInput"
+import MacrosRatio from "../components/MacrosRatio"
 
 export default function HomePage() {
   return (
     <>
-    <h1>calorie tracker</h1>
+    <FoodInput />
+    <MacrosRatio />
     </>
   );
 }
