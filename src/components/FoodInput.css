@@ -48,3 +48,57 @@
   text-align: center;
   font-size: 20px;
 }
+
+.food-kcal {
+  color: #D9534F; /* Softer red for calories */
+  font-weight: bold;
+  transition: color 0.2s ease-in-out;
+}
+
+.food-protein {
+  color: #F0A500; /* Warm orange for protein */
+  font-weight: bold;
+  transition: color 0.2s ease-in-out;
+}
+
+.food-carbohydrate {
+  color: #5BC0BE; /* Cool teal for carbohydrates */
+  font-weight: bold;
+  transition: color 0.2s ease-in-out;
+}
+
+.food-fat {
+  color: #FF6F61; /* Soft coral red for fats */
+  font-weight: bold;
+  transition: color 0.2s ease-in-out;
+}
+
+.food-kcal:hover,
+.food-protein:hover,
+.food-carbohydrate:hover,
+.food-fat:hover {
+  color: #ffffff; /* Changes to a neutral dark color on hover for contrast */
+}
+
+.quantity-input {
+  width: 70px;
+  margin:0 50px 10px 0;
+  height: 30px;
+  font-size: 15px;
+  text-align: center;
+  border-radius: 5px;
+  border: 0;
+}
+
+.add-button {
+  width: 70px;
+  height: 30px;
+  border-radius: 5px;
+  border: 0;
+  background-color: #ffffff;
+  transition: background-color 0.2s ease;
+}
+
+.add-button:hover{
+  background-color: #72a96b;
+}
