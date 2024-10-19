@@ -51,10 +51,14 @@ export default function FoodCalculator({ foodList }) {
     let calorieAdjustment = dailyCalories;
     const weeklyGoal = parseFloat(savedSettings.weeklyGoal);
 
-    if (weeklyGoal < 0) {
-      calorieAdjustment -= 500; // Pierdere în greutate
-    } else if (weeklyGoal > 0) {
-      calorieAdjustment += 250; // Creștere în greutate
+    if (weeklyGoal == "-1") {
+      calorieAdjustment -= 1000;
+    } else if (weeklyGoal == "-0.5") {
+      calorieAdjustment -= 500; 
+    } else if (weeklyGoal == "0.25") {
+      calorieAdjustment += 250; 
+    } else if (weeklyGoal == "0.5") {
+      calorieAdjustment += 500; 
     }
 
     setDailyCalories(Math.floor(calorieAdjustment));
