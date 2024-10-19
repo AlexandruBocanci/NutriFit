@@ -1,12 +1,19 @@
-import FoodInput from "../components/FoodInput"
+import { useState } from "react";
+import FoodInput from "../components/FoodInput";
 import FoodCalculator from "../components/FoodCalculator";
-import "./CalorieTracker.css"
+import "./CalorieTracker.css";
 
-export default function HomePage() {
+export default function CalorieTracker() {
+  const [foodList, setFoodList] = useState([]);
+
+  const handleFoodAdd = (foodData) => {
+    setFoodList((prevList) => [...prevList, foodData]);
+  };
+
   return (
     <div className="components">
-      <FoodInput />
-      <FoodCalculator/>
+      <FoodInput onFoodAdd={handleFoodAdd} />
+      <FoodCalculator foodList={foodList} />
     </div>
   );
 }

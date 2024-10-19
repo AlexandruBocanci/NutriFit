@@ -1,2 +1,4 @@
 pe pagina de progress o sa fie grafice cu caloriile consumate in ultimele x zile, un grafic pentru greutate
 pe pagina home, elementul 3 trebuie sa contina un grafic cu greutatea pe ultimele 7 zile, si un buton prin care poti introduce rapid greutatea. iar dupa cele 3 div uri sa fie facute componente, si updatat homepage ul.
+
+trebuie rezolvat calculatorul de calorii din foodcalculator, la weeklyGoal < 0

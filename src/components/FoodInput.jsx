@@ -1,14 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import "./FoodInput.css";
 
-export default function FoodInput() {
+export default function FoodInput({ onFoodAdd }) {
   const apiKey = import.meta.env.VITE_USDA_API_KEY;
   const [foodName, setFoodName] = useState('');
   const [foodResults, setFoodResults] = useState([]);
   const [selectedFoodId, setSelectedFoodId] = useState(null);
   const [quantity, setQuantity] = useState(1);
-  const [accountSettings, setAccountSettings] = useState({});
-  
 
   const fetchFoodData = async (foodName) => {
     try {
@@ -27,10 +25,10 @@ export default function FoodInput() {
     }
   };
 
-
-
   const handleSearch = () => {
-    fetchFoodData(foodName);
+    if (foodName.trim() !== '') {
+      fetchFoodData(foodName);
+    }
   };
 
   const handleFoodSelect = (foodId) => {
@@ -38,9 +36,27 @@ export default function FoodInput() {
   };
 
   const handleAddFood = (food) => {
-    console.log('Food added to tracker:', food, 'Quantity:', quantity);
-    // Add additional logic to update user's food tracker, if necessary
+    const kcal = Math.floor(quantity * (food.foodNutrients.find(nutrient => nutrient.nutrientName === 'Energy')?.value || 0));
+    const protein = Math.floor(quantity * (food.foodNutrients.find(nutrient => nutrient.nutrientName === 'Protein')?.value || 0));
+    const carbs = Math.floor(quantity * (food.foodNutrients.find(nutrient => nutrient.nutrientName === 'Carbohydrate, by difference')?.value || 0));
+    const fats = Math.floor(quantity * (food.foodNutrients.find(nutrient => nutrient.nutrientName === 'Total lipid (fat)')?.value || 0));
+
+    const foodData = {
+      description: food.description,
+      kcal,
+      protein,
+      carbs,
+      fats
+    };
+
+    if (typeof onFoodAdd === 'function') {
+      onFoodAdd(foodData);
+    } else {
+      console.error('onFoodAdd is not a function', onFoodAdd);
+    }
+
     setSelectedFoodId(null);
+    setQuantity(1); // Reset quantity after adding food
   };
 
   const handleKeyDown = (e) => {
@@ -49,15 +65,8 @@ export default function FoodInput() {
     }
   };
 
-  // Prevent click events from propagating when interacting with input or button
   const handleQuantityClick = (e) => {
     e.stopPropagation();
-  };
-
-  // New combined function for button click
-  const handleAddButton = (e, food) => {
-    e.stopPropagation(); // Prevent event from bubbling up
-    handleAddFood(food); // Call the add food function
   };
 
   return (
@@ -70,7 +79,7 @@ export default function FoodInput() {
         placeholder="🔍 Enter food name"
         className='food-search'
       />
-     
+
       {foodResults.length > 0 && (
         <div className="food-results">
           <div className='food-items'>
@@ -107,19 +116,19 @@ export default function FoodInput() {
                   </span>
                 </p>
 
-                {/* Show quantity input and add button only for the selected food */}
                 {selectedFoodId === food.fdcId && (
                   <div className="food-quantity">
                     <input 
                       type="number" 
                       value={quantity} 
-                      onChange={(e) => setQuantity(e.target.value)} 
+                      onChange={(e) => setQuantity(parseFloat(e.target.value) || 1)} 
                       placeholder="Quantity (g)"
                       className="quantity-input"
-                      onClick={handleQuantityClick} // Prevent event from bubbling up
+                      onClick={handleQuantityClick}
+                      min="1"
                     />
                     <button 
-                      onClick={(e) => handleAddButton(e, food)} // Use the combined handler
+                      onClick={() => handleAddFood(food)}
                       className="add-button"
                     >
                       Add
@@ -129,7 +138,6 @@ export default function FoodInput() {
               </div>
             ))}
           </div>
-
         </div>
       )}
     </div>
