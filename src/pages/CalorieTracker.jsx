@@ -1,11 +1,12 @@
 import FoodInput from "../components/FoodInput"
-import MacrosRatio from "../components/MacrosRatio"
+import FoodCalculator from "../components/FoodCalculator";
+import "./CalorieTracker.css"
 
 export default function HomePage() {
   return (
-    <>
-    <FoodInput />
-    <MacrosRatio />
-    </>
+    <div className="components">
+      <FoodInput />
+      <FoodCalculator/>
+    </div>
   );
 }

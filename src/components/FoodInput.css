@@ -2,7 +2,7 @@
   background: rgba(255, 255, 255, 0.1);
   padding: 20px;
   border-radius: 10px;
-  width: 50%;
+  width: 45%;
   height: auto;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(3px);
@@ -11,9 +11,7 @@
   box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1), 
               0 6px 12px rgba(0, 0, 0, 0.2);
   border: 2px  solid black;
-  margin: auto;
-  margin-bottom: 30px;
-  margin-top: 30px;
+  margin: 30px 25px 30px 25px;
 }
 
 .food-input:hover {
@@ -95,10 +93,11 @@
   height: 30px;
   border-radius: 5px;
   border: 0;
-  background-color: #ffffff;
-  transition: background-color 0.2s ease;
+  background-color: #72a96b;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .add-button:hover{
-  background-color: #72a96b;
+  background-color: #588552;
+  color: rgb(226, 226, 226);
 }

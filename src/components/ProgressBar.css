@@ -1,0 +1,19 @@
+/* ProgressBar.css */
+.progress-bar {
+  width: 100%;
+  background-color: #e0e0e0; /* Light grey background */
+  border-radius: 8px;
+  overflow: hidden;
+  height: 25px;
+  margin: 10px 0;
+}
+
+.progress-bar-fill {
+  background-color: #76c7c0; /* Customize this color as needed */
+  height: 100%;
+  text-align: center;
+  line-height: 25px; /* Center the text vertically */
+  color: #fff;
+  transition: width 0.3s ease-in-out;
+  border-radius: 8px;
+}

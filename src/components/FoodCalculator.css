@@ -1,0 +1,15 @@
+.food-calculator {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 10px;
+  width: 45%;
+  height: auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(3px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, backdrop-filter 0.3s ease;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1), 
+              0 6px 12px rgba(0, 0, 0, 0.2);
+  border: 2px  solid black;
+  margin: 30px 25px 30px 25px;
+}

@@ -8,10 +8,7 @@ export default function FoodInput() {
   const [selectedFoodId, setSelectedFoodId] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [accountSettings, setAccountSettings] = useState({});
-  const [dailyCalories, setDailyCalories] = useState(0);
-  const [proteinIntake, setProteinIntake] = useState(0);
-  const [carbIntake, setCarbIntake] = useState(0);
-  const [fatIntake, setFatIntake] = useState(0);
+  
 
   const fetchFoodData = async (foodName) => {
     try {
@@ -30,82 +27,7 @@ export default function FoodInput() {
     }
   };
 
-  useEffect(() => {
-    const savedSettings = JSON.parse(localStorage.getItem('userSettings'));
-    if (savedSettings) {
-      setAccountSettings(savedSettings);
-      dailyCalorieCalculator(savedSettings);
-    }
-  }, []);
 
-  function dailyCalorieCalculator(savedSettings) {
-    const currentWeight = parseFloat(savedSettings.currentWeight);
-    const height = parseFloat(savedSettings.height);
-    const age = parseFloat(savedSettings.age);
-
-    if (isNaN(currentWeight) || isNaN(height) || isNaN(age)) {
-        console.error('Invalid user settings:', savedSettings);
-        return;
-    }
-
-    let bmr;
-    if (savedSettings.gender === 'Male') {
-        bmr = 10 * currentWeight + 6.25 * height - 5 * age + 5;
-    } else {
-        bmr = 10 * currentWeight + 6.25 * height - 5 * age - 161;
-    }
-
-    const activityMultipliers = {
-        sedentary: 1.2,
-        light: 1.375,
-        moderate: 1.55,
-        very_active: 1.725,
-        extra_active: 1.9,
-    };
-
-    const activityMultiplier = activityMultipliers[savedSettings.activityLevel];
-    if (!activityMultiplier) {
-        console.error('Invalid activity level:', savedSettings.activityLevel);
-        return;
-    }
-
-    const dailyCalories = bmr * activityMultiplier;
-    let calorieAdjustment = dailyCalories;
-    const weeklyGoal = parseFloat(savedSettings.weeklyGoal);
-
-    if (weeklyGoal < 0) {
-        calorieAdjustment -= 500; // Losing weight
-    } else if (weeklyGoal > 0) {
-        calorieAdjustment += 250; // Gaining weight
-    }
-
-    setDailyCalories(Math.floor(calorieAdjustment));
-
-    // Calculate daily macronutrient needs
-    const proteinRatio = 0.25; // 25% of total calories from protein
-    const carbRatio = 0.50;     // 50% of total calories from carbohydrates
-    const fatRatio = 0.25;      // 25% of total calories from fats
-
-    const proteinCalories = calorieAdjustment * proteinRatio;
-    const carbCalories = calorieAdjustment * carbRatio;
-    const fatCalories = calorieAdjustment * fatRatio;
-
-    // Convert calories to grams
-    const proteinGrams = proteinCalories / 4;
-    const carbGrams = carbCalories / 4;
-    const fatGrams = fatCalories / 9;
-
-    // Set macro intakes based on calculated grams
-    setProteinIntake(Math.floor(proteinGrams));
-    setCarbIntake(Math.floor(carbGrams));
-    setFatIntake(Math.floor(fatGrams));
-
-    // Log values immediately after setting
-    console.log("Daily Calories:", Math.floor(calorieAdjustment));
-    console.log("Protein:", Math.floor(proteinGrams));
-    console.log("Carbs:", Math.floor(carbGrams));
-    console.log("Fats:", Math.floor(fatGrams));
-}
 
   const handleSearch = () => {
     fetchFoodData(foodName);
@@ -208,14 +130,6 @@ export default function FoodInput() {
             ))}
           </div>
 
-          {/* Display daily calorie and macronutrient goals */}
-          <div className="nutrition-summary">
-            <h3>Daily Goals</h3>
-            <p>Total Daily Calories: {dailyCalories} kcal</p>
-            <p>Protein: {proteinIntake} g</p>
-            <p>Carbohydrates: {carbIntake} g</p>
-            <p>Fats: {fatIntake} g</p>
-          </div>
         </div>
       )}
     </div>
