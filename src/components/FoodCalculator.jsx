@@ -8,6 +8,11 @@ export default function FoodCalculator({ foodList }) {
   const [proteinIntake, setProteinIntake] = useState(0);
   const [carbIntake, setCarbIntake] = useState(0);
   const [fatIntake, setFatIntake] = useState(0);
+  const [selectedDate, setSelectedDate] = useState(() => {
+    const today = new Date();
+    return today.toISOString().split("T")[0]; // Format: "YYYY-MM-DD"
+  });
+  const [foodsForSelectedDate, setFoodsForSelectedDate] = useState([]);
 
   useEffect(() => {
     const savedSettings = JSON.parse(localStorage.getItem("userSettings"));
@@ -15,6 +20,28 @@ export default function FoodCalculator({ foodList }) {
       dailyCalorieCalculator(savedSettings);
     }
   }, []);
+
+  // Actualizarea listei de alimente când `foodList` sau `selectedDate` se schimbă
+  useEffect(() => {
+    const savedData = JSON.parse(localStorage.getItem(selectedDate)) || [];
+    setFoodsForSelectedDate(savedData);
+
+    const totalNutrients = savedData.reduce(
+      (acc, food) => {
+        acc.kcal += food.kcal;
+        acc.protein += food.protein;
+        acc.carbs += food.carbs;
+        acc.fats += food.fats;
+        return acc;
+      },
+      { kcal: 0, protein: 0, carbs: 0, fats: 0 }
+    );
+
+    setCurrentIntake(Math.floor(totalNutrients.kcal));
+    setProteinIntake(Math.floor(totalNutrients.protein));
+    setCarbIntake(Math.floor(totalNutrients.carbs));
+    setFatIntake(Math.floor(totalNutrients.fats));
+  }, [foodList, selectedDate]); // Adăugat `foodList` ca dependință
 
   function dailyCalorieCalculator(savedSettings) {
     const currentWeight = parseFloat(savedSettings.currentWeight);
@@ -62,34 +89,36 @@ export default function FoodCalculator({ foodList }) {
     }
 
     setDailyCalories(Math.floor(calorieAdjustment));
-
-    const proteinRatio = 0.25;
-    const carbRatio = 0.50;
-    const fatRatio = 0.25;
-
-    const proteinGrams = (calorieAdjustment * proteinRatio) / 4;
-    const carbGrams = (calorieAdjustment * carbRatio) / 4;
-    const fatGrams = (calorieAdjustment * fatRatio) / 9;
-
-    setProteinIntake(Math.floor(proteinGrams));
-    setCarbIntake(Math.floor(carbGrams));
-    setFatIntake(Math.floor(fatGrams));
   }
 
-  useEffect(() => {
-    const totalNutrients = foodList.reduce((acc, food) => {
-      acc.kcal += food.kcal;
-      acc.protein += food.protein;
-      acc.carbs += food.carbs;
-      acc.fats += food.fats;
-      return acc;
-    }, { kcal: 0, protein: 0, carbs: 0, fats: 0 });
+  const handleDateChange = (e) => {
+    setSelectedDate(e.target.value);
+  };
+
+  const handleDeleteFood = (index) => {
+    const updatedFoods = foodsForSelectedDate.filter((_, i) => i !== index);
+    setFoodsForSelectedDate(updatedFoods);
+    
+    // Actualizăm localStorage
+    localStorage.setItem(selectedDate, JSON.stringify(updatedFoods));
+
+    // Recalculăm nutrientii total
+    const totalNutrients = updatedFoods.reduce(
+      (acc, food) => {
+        acc.kcal += food.kcal;
+        acc.protein += food.protein;
+        acc.carbs += food.carbs;
+        acc.fats += food.fats;
+        return acc;
+      },
+      { kcal: 0, protein: 0, carbs: 0, fats: 0 }
+    );
 
     setCurrentIntake(Math.floor(totalNutrients.kcal));
     setProteinIntake(Math.floor(totalNutrients.protein));
     setCarbIntake(Math.floor(totalNutrients.carbs));
     setFatIntake(Math.floor(totalNutrients.fats));
-  }, [foodList]);
+  };
 
   return (
     <div className="food-calculator">
@@ -104,9 +133,16 @@ export default function FoodCalculator({ foodList }) {
 
       <p>Fats: {fatIntake}g</p>
       <ProgressBar current={fatIntake} goal={70} color="#FF6F61" />
+      
+      <input 
+        type="date" 
+        value={selectedDate} 
+        onChange={handleDateChange} 
+        className="date-selector" 
+      />
 
       <div className="food-list">
-        {foodList.map((food, index) => (
+        {foodsForSelectedDate.map((food, index) => (
           <div key={index} className="food-item">
             <p>{food.description}</p>
             <p>
@@ -115,6 +151,7 @@ export default function FoodCalculator({ foodList }) {
               <span className="food-carbohydrate"> {food.carbs}g carbs</span>
               <span className="food-fat"> {food.fats}g fats</span>
             </p>
+            <button className="delete-button" onClick={() => handleDeleteFood(index)}>Delete</button>
           </div>
         ))}
       </div>

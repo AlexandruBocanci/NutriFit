@@ -36,11 +36,13 @@ export default function FoodInput({ onFoodAdd }) {
   };
 
   const handleAddFood = (food) => {
+    const today = new Date();
+    const formattedDate = `${String(today.getDate()).padStart(2, '0')}/${String(today.getMonth() + 1).padStart(2, '0')}/${today.getFullYear()}`; // Format: "DD/MM/YYYY"
     const kcal = Math.floor(quantity * (food.foodNutrients.find(nutrient => nutrient.nutrientName === 'Energy')?.value || 0));
     const protein = Math.floor(quantity * (food.foodNutrients.find(nutrient => nutrient.nutrientName === 'Protein')?.value || 0));
     const carbs = Math.floor(quantity * (food.foodNutrients.find(nutrient => nutrient.nutrientName === 'Carbohydrate, by difference')?.value || 0));
     const fats = Math.floor(quantity * (food.foodNutrients.find(nutrient => nutrient.nutrientName === 'Total lipid (fat)')?.value || 0));
-
+  
     const foodData = {
       description: food.description,
       kcal,
@@ -48,17 +50,21 @@ export default function FoodInput({ onFoodAdd }) {
       carbs,
       fats
     };
-
+  
+    // Salvare în localStorage pentru data curentă
+    const savedData = JSON.parse(localStorage.getItem(formattedDate)) || [];
+    const updatedData = [...savedData, foodData];
+    localStorage.setItem(formattedDate, JSON.stringify(updatedData));
+  
+    // Apelare callback pentru actualizarea listei în timp real
     if (typeof onFoodAdd === 'function') {
       onFoodAdd(foodData);
-    } else {
-      console.error('onFoodAdd is not a function', onFoodAdd);
     }
-
+  
     setSelectedFoodId(null);
-    setQuantity(1); // Reset quantity after adding food
+    setQuantity(1); // Reset quantity după adăugare
   };
-
+  
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       handleSearch();

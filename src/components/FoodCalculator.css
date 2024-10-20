@@ -14,6 +14,12 @@
   margin: 30px 25px 30px 25px;
 }
 
+.food-calculator:hover {
+
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(5px);
+}
+
 .food-item {
   border: 1px solid black;
   color: white;
@@ -24,6 +30,30 @@
 }
 
 .food-item:hover{
-  transform: scale(1.02);
   background-color: rgba(0, 0, 0, 0.25);
+}
+
+.date-selector {
+  background-color: rgba(255, 255, 255, 1);
+  border: 0;
+  border-radius: 10px;
+  width: 10vw;
+  height: 4vh;
+  text-align: center;
+  font-size: large;
+}
+
+.delete-button {
+  width: 70px;
+  height: 30px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  border: 0;
+  background-color: #fd5a5a;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.delete-button:hover{
+  background-color: #fe4444;
+  color: rgb(226, 226, 226);
 }
