@@ -8,6 +8,9 @@ export default function FoodCalculator({ foodList }) {
   const [proteinIntake, setProteinIntake] = useState(0);
   const [carbIntake, setCarbIntake] = useState(0);
   const [fatIntake, setFatIntake] = useState(0);
+  const [dailyProteinGoal, setDailyProteinGoal] = useState(0);
+  const [dailyCarbGoal, setDailyCarbGoal] = useState(0);
+  const [dailyFatGoal, setDailyFatGoal] = useState(0);
   const [selectedDate, setSelectedDate] = useState(() => {
     const today = new Date();
     return today.toISOString().split("T")[0]; // Format: "YYYY-MM-DD"
@@ -21,7 +24,6 @@ export default function FoodCalculator({ foodList }) {
     }
   }, []);
 
-  // Actualizarea listei de alimente când `foodList` sau `selectedDate` se schimbă
   useEffect(() => {
     const savedData = JSON.parse(localStorage.getItem(selectedDate)) || [];
     setFoodsForSelectedDate(savedData);
@@ -41,7 +43,7 @@ export default function FoodCalculator({ foodList }) {
     setProteinIntake(Math.floor(totalNutrients.protein));
     setCarbIntake(Math.floor(totalNutrients.carbs));
     setFatIntake(Math.floor(totalNutrients.fats));
-  }, [foodList, selectedDate]); // Adăugat `foodList` ca dependință
+  }, [foodList, selectedDate]);
 
   function dailyCalorieCalculator(savedSettings) {
     const currentWeight = parseFloat(savedSettings.currentWeight);
@@ -74,21 +76,30 @@ export default function FoodCalculator({ foodList }) {
       return;
     }
 
-    const dailyCalories = bmr * activityMultiplier;
-    let calorieAdjustment = dailyCalories;
+    let dailyCalories = bmr * activityMultiplier;
     const weeklyGoal = parseFloat(savedSettings.weeklyGoal);
-
-    if (weeklyGoal == "-1") {
-      calorieAdjustment -= 1000;
-    } else if (weeklyGoal == "-0.5") {
-      calorieAdjustment -= 500; 
-    } else if (weeklyGoal == "0.25") {
-      calorieAdjustment += 250; 
-    } else if (weeklyGoal == "0.5") {
-      calorieAdjustment += 500; 
+    
+    // Adjust calories based on weekly goal
+    if (weeklyGoal === -1) {
+      dailyCalories -= 1000;
+    } else if (weeklyGoal === -0.5) {
+      dailyCalories -= 500; 
+    } else if (weeklyGoal === 0.25) {
+      dailyCalories += 250; 
+    } else if (weeklyGoal === 0.5) {
+      dailyCalories += 500; 
     }
 
-    setDailyCalories(Math.floor(calorieAdjustment));
+    setDailyCalories(Math.floor(dailyCalories));
+
+    // Calcularea macronutrienților
+    const proteinGoal = (dailyCalories * 0.20) / 4; // 20% din calorii
+    const carbGoal = (dailyCalories * 0.55) / 4;    // 55% din calorii
+    const fatGoal = (dailyCalories * 0.25) / 9;     // 25% din calorii
+
+    setDailyProteinGoal(Math.floor(proteinGoal));
+    setDailyCarbGoal(Math.floor(carbGoal));
+    setDailyFatGoal(Math.floor(fatGoal));
   }
 
   const handleDateChange = (e) => {
@@ -125,14 +136,14 @@ export default function FoodCalculator({ foodList }) {
       <p>Calories: {currentIntake} kcal / {dailyCalories} kcal</p>
       <ProgressBar current={currentIntake} goal={dailyCalories} color="#D9534F" />
 
-      <p>Protein: {proteinIntake}g</p>
-      <ProgressBar current={proteinIntake} goal={200} color="#F0A500" />
+      <p>Protein: {proteinIntake}g / {dailyProteinGoal}g</p>
+      <ProgressBar current={proteinIntake} goal={dailyProteinGoal} color="#F0A500" />
 
-      <p>Carbs: {carbIntake}g</p>
-      <ProgressBar current={carbIntake} goal={300} color="#5BC0BE" />
+      <p>Carbs: {carbIntake}g / {dailyCarbGoal}g</p>
+      <ProgressBar current={carbIntake} goal={dailyCarbGoal} color="#5BC0BE" />
 
-      <p>Fats: {fatIntake}g</p>
-      <ProgressBar current={fatIntake} goal={70} color="#FF6F61" />
+      <p>Fats: {fatIntake}g / {dailyFatGoal}g</p>
+      <ProgressBar current={fatIntake} goal={dailyFatGoal} color="#FF6F61" />
       
       <input 
         type="date" 
