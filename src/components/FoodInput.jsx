@@ -36,6 +36,12 @@ export default function FoodInput({ onFoodAdd }) {
   };
 
   const handleAddFood = (food) => {
+
+    if(!quantity){
+      alert("Must introduce a valid quantity");
+      setQuantity(1);
+      return;
+    }
     const today = new Date();
     const formattedDate = `${String(today.getDate()).padStart(2, '0')}/${String(today.getMonth() + 1).padStart(2, '0')}/${today.getFullYear()}`; // Format: "DD/MM/YYYY"
     const kcal = Math.floor(quantity * (food.foodNutrients.find(nutrient => nutrient.nutrientName === 'Energy')?.value || 0));
@@ -60,9 +66,8 @@ export default function FoodInput({ onFoodAdd }) {
     if (typeof onFoodAdd === 'function') {
       onFoodAdd(foodData);
     }
-  
-    setSelectedFoodId(null);
-    setQuantity(1); // Reset quantity după adăugare
+      setSelectedFoodId(null);
+      setQuantity(1);
   };
   
   const handleKeyDown = (e) => {
@@ -127,7 +132,7 @@ export default function FoodInput({ onFoodAdd }) {
                     <input 
                       type="number" 
                       value={quantity} 
-                      onChange={(e) => setQuantity(parseFloat(e.target.value) || 1)} 
+                      onChange={(e) => setQuantity(parseFloat(e.target.value))} 
                       placeholder="Quantity (g)"
                       className="quantity-input"
                       onClick={handleQuantityClick}
