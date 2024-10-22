@@ -13,7 +13,7 @@
   height: 100%;
   text-align: center;
   line-height: 25px; /* Center the text vertically */
-  color: #fff;
+  color: #000000;
   transition: width 0.3s ease-in-out;
   border-radius: 8px;
 }
