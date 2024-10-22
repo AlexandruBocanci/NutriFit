@@ -1,8 +1,9 @@
+import WeightGraph from "../components/WeightGraph"
 
 export default function HomePage() {
   return (
     <>
-    <h1>progress</h1>
+    <WeightGraph />
     </>
   );
 }
