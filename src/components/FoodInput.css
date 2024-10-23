@@ -48,25 +48,25 @@
 }
 
 .food-kcal {
-  color: #D9534F; /* Softer red for calories */
+  color: #D9534F; 
   font-weight: bold;
   transition: color 0.2s ease-in-out;
 }
 
 .food-protein {
-  color: #F0A500; /* Warm orange for protein */
+  color: #F0A500; 
   font-weight: bold;
   transition: color 0.2s ease-in-out;
 }
 
 .food-carbohydrate {
-  color: #5BC0BE; /* Cool teal for carbohydrates */
+  color: #5BC0BE; 
   font-weight: bold;
   transition: color 0.2s ease-in-out;
 }
 
 .food-fat {
-  color: #FF6F61; /* Soft coral red for fats */
+  color: #FF6F61; 
   font-weight: bold;
   transition: color 0.2s ease-in-out;
 }
@@ -75,7 +75,7 @@
 .food-protein:hover,
 .food-carbohydrate:hover,
 .food-fat:hover {
-  color: #ffffff; /* Changes to a neutral dark color on hover for contrast */
+  color: #ffffff;
 }
 
 .quantity-input {

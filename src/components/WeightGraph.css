@@ -1,0 +1,10 @@
+.graph {
+  width: 40vw;
+  height: 40vh;
+  position: fixed;
+  top: 178px; 
+  right: 65px;
+  background-color: aliceblue;
+  border-radius: 10px;
+}
+

@@ -1,7 +1,7 @@
 /* ProgressBar.css */
 .progress-bar {
   width: 100%;
-  background-color: #e0e0e0; /* Light grey background */
+  background-color: #e0e0e0;
   border-radius: 8px;
   overflow: hidden;
   height: 25px;
@@ -9,10 +9,10 @@
 }
 
 .progress-bar-fill {
-  background-color: #76c7c0; /* Customize this color as needed */
+  background-color: #76c7c0;  
   height: 100%;
   text-align: center;
-  line-height: 25px; /* Center the text vertically */
+  line-height: 25px;
   color: #000000;
   transition: width 0.3s ease-in-out;
   border-radius: 8px;

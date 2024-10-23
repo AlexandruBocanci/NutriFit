@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import "./FoodCalculator.css";
-import ProgressBar from "./ProgressBar";
+import { useState, useEffect } from "react"; // Import necessary hooks from React
+import "./FoodCalculator.css"; // Import CSS for styling
+import ProgressBar from "./ProgressBar"; // Import ProgressBar component
 
 export default function FoodCalculator({ foodList }) {
   const [dailyCalories, setDailyCalories] = useState(0);
@@ -28,17 +28,19 @@ export default function FoodCalculator({ foodList }) {
     const savedData = JSON.parse(localStorage.getItem(selectedDate)) || [];
     setFoodsForSelectedDate(savedData);
 
+    // Calculate total nutrient intake for the selected date
     const totalNutrients = savedData.reduce(
       (acc, food) => {
-        acc.kcal += food.kcal;
-        acc.protein += food.protein;
-        acc.carbs += food.carbs;
-        acc.fats += food.fats;
-        return acc;
+        acc.kcal += food.kcal; // Sum calories
+        acc.protein += food.protein; // Sum protein
+        acc.carbs += food.carbs; // Sum carbohydrates
+        acc.fats += food.fats; // Sum fats
+        return acc; // Return accumulated values
       },
-      { kcal: 0, protein: 0, carbs: 0, fats: 0 }
+      { kcal: 0, protein: 0, carbs: 0, fats: 0 } // Initial accumulator values
     );
 
+    // Update current intake state with calculated totals
     setCurrentIntake(Math.floor(totalNutrients.kcal));
     setProteinIntake(Math.floor(totalNutrients.protein));
     setCarbIntake(Math.floor(totalNutrients.carbs));
@@ -50,11 +52,13 @@ export default function FoodCalculator({ foodList }) {
     const height = parseFloat(savedSettings.height);
     const age = parseFloat(savedSettings.age);
 
+    // Validate the user settings
     if (isNaN(currentWeight) || isNaN(height) || isNaN(age)) {
       console.error("Invalid user settings:", savedSettings);
-      return;
+      return; // Exit if invalid
     }
 
+    // Calculate Basal Metabolic Rate (BMR) based on gender
     let bmr;
     if (savedSettings.gender === "Male") {
       bmr = 10 * currentWeight + 6.25 * height - 5 * age + 5;
@@ -73,30 +77,31 @@ export default function FoodCalculator({ foodList }) {
     const activityMultiplier = activityMultipliers[savedSettings.activityLevel];
     if (!activityMultiplier) {
       console.error("Invalid activity level:", savedSettings.activityLevel);
-      return;
+      return; // Exit if invalid activity level
     }
 
-    let dailyCalories = bmr * activityMultiplier;
+    let dailyCalories = bmr * activityMultiplier; // Calculate daily calorie needs
     const weeklyGoal = parseFloat(savedSettings.weeklyGoal);
-    
+
     // Adjust calories based on weekly goal
     if (weeklyGoal === -1) {
-      dailyCalories -= 1000;
+      dailyCalories -= 1000; // For rapid weight loss
     } else if (weeklyGoal === -0.5) {
-      dailyCalories -= 500; 
+      dailyCalories -= 500; // For gradual weight loss
     } else if (weeklyGoal === 0.25) {
-      dailyCalories += 250; 
+      dailyCalories += 250; // For gradual weight gain
     } else if (weeklyGoal === 0.5) {
-      dailyCalories += 500; 
+      dailyCalories += 500; // For rapid weight gain
     }
 
     setDailyCalories(Math.floor(dailyCalories));
 
-    // Calcularea macronutrienților
-    const proteinGoal = (dailyCalories * 0.20) / 4; // 20% din calorii
-    const carbGoal = (dailyCalories * 0.55) / 4;    // 55% din calorii
-    const fatGoal = (dailyCalories * 0.25) / 9;     // 25% din calorii
+    // Calculate macronutrient goals
+    const proteinGoal = (dailyCalories * 0.20) / 4; // 20% of calories from protein
+    const carbGoal = (dailyCalories * 0.55) / 4;    // 55% of calories from carbohydrates
+    const fatGoal = (dailyCalories * 0.25) / 9;     // 25% of calories from fats
 
+    // Update state with calculated macronutrient goals
     setDailyProteinGoal(Math.floor(proteinGoal));
     setDailyCarbGoal(Math.floor(carbGoal));
     setDailyFatGoal(Math.floor(fatGoal));
@@ -107,24 +112,25 @@ export default function FoodCalculator({ foodList }) {
   };
 
   const handleDeleteFood = (index) => {
-    const updatedFoods = foodsForSelectedDate.filter((_, i) => i !== index);
+    const updatedFoods = foodsForSelectedDate.filter((_, i) => i !== index); // Remove food item by index
     setFoodsForSelectedDate(updatedFoods);
-    
-    // Actualizăm localStorage
+
+    // Update localStorage with the new food list
     localStorage.setItem(selectedDate, JSON.stringify(updatedFoods));
 
-    // Recalculăm nutrientii total
+    // Recalculate total nutrients after deletion
     const totalNutrients = updatedFoods.reduce(
       (acc, food) => {
         acc.kcal += food.kcal;
         acc.protein += food.protein;
         acc.carbs += food.carbs;
         acc.fats += food.fats;
-        return acc;
+        return acc; // Return accumulated values
       },
-      { kcal: 0, protein: 0, carbs: 0, fats: 0 }
+      { kcal: 0, protein: 0, carbs: 0, fats: 0 } // Initial values
     );
 
+    // Update intake states with recalculated totals
     setCurrentIntake(Math.floor(totalNutrients.kcal));
     setProteinIntake(Math.floor(totalNutrients.protein));
     setCarbIntake(Math.floor(totalNutrients.carbs));

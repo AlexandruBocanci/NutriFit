@@ -1,0 +1,66 @@
+.weight-history {
+  background-color: #f7f9fc; /* Light background */
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 500px;
+  position: sticky;
+  left: 0;
+  margin: 100px 0 0 65px;
+}
+
+.input-section {
+  margin-bottom: 20px;
+}
+
+.input-section input {
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.input-section button {
+  padding: 10px 15px;
+  background-color: #3e95cd; /* Same color as chart line */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.log-section {
+  margin-top: 20px;
+}
+
+.log-entry {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #e0e0e0;
+  cursor: pointer;
+}
+
+.log-entry:hover {
+  background-color: #eef3f7; /* Highlight on hover */
+}
+
+.delete-button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  background-color: #ff4d4d; /* Red delete button */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.show-more {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #3e95cd;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}

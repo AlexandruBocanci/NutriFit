@@ -1,9 +1,9 @@
 import { Link, useLocation } from 'react-router-dom';
 import './NavBar.css';
-import logo from '../assets/logo.png'; // Calea relativă către imagine
+import logo from '../assets/logo.png'; // Relative path to the logo image
 
 export default function NavBar() {
-  const location = useLocation(); // Obține ruta curentă
+  const location = useLocation(); // Get the current route
 
   return (
     <nav className="navbar">

@@ -25,7 +25,7 @@ body {
 .app-container {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Takes full screen height */
+  min-height: 100vh; 
 }
 
 /* Content section that pushes the footer down */
