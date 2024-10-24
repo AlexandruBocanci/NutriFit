@@ -1,44 +1,49 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
-import "./WeightGraph.css";
+import './WeightGraph.css';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-export default function WeightGraph() {
-  // Data for the chart
+export default function WeightGraph({ weightLogs = [] }) {
+  // Reverse the logs for the chart to show the newest entries on the right
+  const reversedLogs = [...weightLogs].reverse(); 
+
+  const labels = reversedLogs.map(log => log.date); // Use dates as labels on the X-axis
+  const dataPoints = reversedLogs.map(log => parseFloat(log.weight)); // Use weights as data points
+
   const data = {
-    labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7', 'Day 8'], // X-axis labels
+    labels: labels,
     datasets: [
       {
-        label: 'Weight (kg)', // Legend label for the dataset
-        data: [72, 71.5, 71, 71.2, 70.8, 70.5, 70], // Data points for weight
-        borderColor: '#3e95cd', // Line color
-        backgroundColor: 'rgba(62, 149, 205, 0.4)', // Background color under the line
-        fill: true, // Fill area under the line
-        tension: 0.2, // Curvature of the line
+        label: 'Weight (kg)',
+        data: dataPoints, // Dynamic data
+        borderColor: '#3e95cd',
+        backgroundColor: 'rgba(62, 149, 205, 0.4)',
+        fill: true,
+        tension: 0.2,
       },
     ],
   };
 
-  // Options for the chart
   const options = {
-    responsive: true, // Make the chart responsive
+    responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
-        display: true, // Show legend
+        display: true,
       },
       title: {
-        display: true, // Show title
-        text: 'All time weight trend', // Title text
+        display: true,
+        text: 'All time weight trend',
       },
     },
     scales: {
       y: {
-        beginAtZero: false, // Y-axis does not start at zero
+        beginAtZero: false,
         title: {
-          display: true, // Show title on Y-axis
-          text: 'Weight (kg)', // Y-axis title text
+          display: true,
+          text: 'Weight (kg)',
         },
       },
     },
@@ -46,7 +51,8 @@ export default function WeightGraph() {
 
   return (
     <div className='graph'>
-      <Line data={data} options={options} /> {/* Render the line chart */}
+      <Line data={data} options={options} />
     </div>
   );
 }
+

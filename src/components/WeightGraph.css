@@ -1,10 +1,9 @@
 .graph {
-  width: 40vw;
-  height: 40vh;
-  position: fixed;
-  top: 178px; 
-  right: 65px;
-  background-color: aliceblue;
+  width: 100%;
+  height: auto;
+  background-color: rgb(255, 222, 193);
   border-radius: 10px;
+  min-width: 400px;
+  min-height: 250px;
 }
 

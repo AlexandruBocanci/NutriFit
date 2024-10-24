@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './WeightHistory.css';
+import WeightGraph from './WeightGraph'; // Import WeightGraph
 
 export default function WeightHistory() {
   const [weightLogs, setWeightLogs] = useState([]);
@@ -55,6 +56,9 @@ export default function WeightHistory() {
         />
         <button onClick={handleAddWeight}>Add Weight</button>
       </div>
+
+      {/* Pass weightLogs to the WeightGraph */}
+      <WeightGraph weightLogs={weightLogs} />
 
       {/* Display weight logs */}
       <div className="log-section">
