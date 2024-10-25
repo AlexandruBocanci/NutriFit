@@ -1,0 +1,25 @@
+/* MacrosGraph.css */
+
+.macros-graph {
+  position: relative;
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.macros-graph select {
+  display: block;
+  margin: 0 auto 15px;
+  padding: 8px 12px;
+  font-size: 1em;
+  color: #333;
+  background-color: #eaeaea;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.macros-graph canvas {
+  max-width: 100%;
+  height: auto;
+}
