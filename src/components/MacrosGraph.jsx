@@ -17,8 +17,8 @@ export default function MacrosGraph({ weeklyData, selectedMacro }) {
       {
         label: `${selectedMacro.charAt(0).toUpperCase() + selectedMacro.slice(1)}`,
         data: dataPoints,
-        backgroundColor: 'rgba(75, 192, 192, 0.6)',
-        borderColor: 'rgba(75, 192, 192, 1)',
+        backgroundColor: '#bec7ed',
+        borderColor: '#bec7ed',
         borderWidth: 1,
       },
     ],
@@ -29,19 +29,38 @@ export default function MacrosGraph({ weeklyData, selectedMacro }) {
     scales: {
       y: {
         beginAtZero: true,
+        grid: {
+          color: 'white' // Makes the y-axis grid lines white
+        },
+        ticks: {
+          color: 'white' // Optional: makes the y-axis labels white
+        }
       },
+      x: {
+        grid: {
+          color: 'white' // Makes the x-axis grid lines white
+        },
+        ticks: {
+          color: 'white' // Optional: makes the x-axis labels white
+        }
+      }
     },
     plugins: {
       legend: {
         display: true,
         position: 'top',
+        labels: {
+          color: 'white' // Makes legend text white
+        }
       },
       title: {
         display: true,
         text: `Weekly ${selectedMacro} Intake`,
+        color: 'white' // Title color
       },
     },
   };
+  
 
   return <Bar data={data} options={options} />;
 }

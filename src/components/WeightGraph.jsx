@@ -18,7 +18,7 @@ export default function WeightGraph({ weightLogs = [] }) {
       {
         label: 'Weight (kg)',
         data: dataPoints, // Dynamic data
-        borderColor: '#3e95cd',
+        borderColor: '#6885d5',
         backgroundColor: 'rgba(62, 149, 205, 0.4)',
         fill: true,
         tension: 0.2,
@@ -32,23 +32,42 @@ export default function WeightGraph({ weightLogs = [] }) {
     plugins: {
       legend: {
         display: true,
+        labels: {
+          color: 'white' // Legend text color
+        }
       },
       title: {
         display: true,
         text: 'All time weight trend',
+        color: 'white' // Title text color
       },
     },
     scales: {
       y: {
         beginAtZero: false,
+        grid: {
+          color: 'white' // Y-axis grid lines color
+        },
         title: {
           display: true,
           text: 'Weight (kg)',
+          color: 'white' // Y-axis title color
         },
+        ticks: {
+          color: 'white' // Y-axis label color
+        }
       },
+      x: {
+        grid: {
+          color: 'white' // X-axis grid lines color
+        },
+        ticks: {
+          color: 'white' // X-axis label color
+        }
+      }
     },
   };
-
+  
   return (
     <div className='graph'>
       <Line data={data} options={options} />
