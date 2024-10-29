@@ -1,5 +1,6 @@
 import './HomePage.css'
-
+import WeightHistory from "../components/WeightHistory"
+import FoodCalculator from "../components/FoodCalculator"
 
 export default function HomePage() {
   return (
@@ -14,17 +15,20 @@ export default function HomePage() {
         <div className="feature" id="track-calories">
           <h2>Track Calories</h2>
           <p>Monitor your daily intake and stay on track with your goals.</p>
+          <img src="./src/assets/CalorieTracker.png" className='calorie-tracker-img' />
           <a href="/tracker">Start Tracking</a>
         </div>
         <div className="feature" id="progress-overview">
           <h2>Progress Overview</h2>
           <p>View your fitness journey and see how much you've improved.</p>
+          <img src="./src/assets/WeightGraph.png" className='weight-graph-img' />
           <a href="/progress">View Progress</a>
         </div>
         <div className="feature" id="set-goals">
-          <h2>Update Weight</h2>
-          <p>Update your today's weight .</p>
-          <a href="/account">Quick Add</a>
+          <h2>Set up your account</h2>
+          <p>Fill up or update your account's info and achieve your goals!</p>
+          <img src="./src/assets/Account.png" className='account-img' />
+          <a href="/account">Set up Account</a>
         </div>
       </div>
 
