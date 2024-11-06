@@ -1,6 +1,4 @@
 import './HomePage.css'
-import WeightHistory from "../components/WeightHistory"
-import FoodCalculator from "../components/FoodCalculator"
 
 export default function HomePage() {
   return (
