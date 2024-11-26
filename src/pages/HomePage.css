@@ -73,7 +73,7 @@ p {
 /* Animation on hover only */
 .feature:hover::before,
 .feature:hover::after {
-  animation: spin 3s linear infinite;
+  animation: spin 5s linear infinite;
   background-image: conic-gradient(from var(--angle), transparent 10%, #bec7ed);
 }
 
